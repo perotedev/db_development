@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  mysql:
+    container_name: MySQL_DB
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db_development
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - ./database/custom.cnf:/etc/mysql/conf.d/custom.cnf
+
+  dbadmin:
+    container_name: phpMyAdmin
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - mysql
+    ports:
+      - "8888:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      PMA_ARBITRARY: 1
