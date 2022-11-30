@@ -16,11 +16,13 @@ SELECT * FROM `empregado` WHERE `nome` like "%A";
 
 SELECT `sexo`, COUNT(`sexo`) AS `quantidade` FROM `empregado` GROUP BY `sexo`;
 
-SELECT `numeroDep`, COUNT(`numeroDep`) FROM `empregado`  GROUP BY `numeroDep`;
+SELECT `departamento`.`nome` AS `departamento`, COUNT(`numeroDep`) AS `qtdEmpregados` FROM `empregado` INNER JOIN `departamento` ON `numeroDep` = `numero`  GROUP BY `numeroDep`;
 
-SELECT * FROM `empregado` WHERE `salario` >= 1000 AND `salario` <= 5000 ;
+SELECT * FROM `empregado` WHERE `salario` >= 1000 AND `salario` <= 4000 ;
+SELECT * FROM `empregado` WHERE `salario` BETWEEN 2000 AND 4000;
 
 SELECT * FROM `empregado` WHERE `numeroDep` = 2 OR `numeroDep` = 3 ;
+SELECT * FROM `empregado` WHERE `numeroDep` IN (2,3);
 
 SELECT DISTINCT `salario` FROM `empregado`;
 
